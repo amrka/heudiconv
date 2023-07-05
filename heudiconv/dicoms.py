@@ -66,6 +66,8 @@ def create_seqinfo(mw: dw.Wrapper, series_files: list[str], series_id: str) -> S
     image_type = get_typed_attr(dcminfo, "ImageType", tuple, ())
     is_moco = "MOCO" in image_type
     series_desc = get_typed_attr(dcminfo, "SeriesDescription", str, "")
+    image_orientation = get_typed_attr(dcminfo, "ImageOrientationPatient", list, [])
+    image_orientation = tuple(map(lambda x: round(float(x)), image_orientation))
 
     if dcminfo.get([0x18, 0x24]):
         # GE and Philips
@@ -109,6 +111,7 @@ def create_seqinfo(mw: dw.Wrapper, series_files: list[str], series_id: str) -> S
         date=dcminfo.get("AcquisitionDate"),
         series_uid=dcminfo.get("SeriesInstanceUID"),
         time=dcminfo.get("AcquisitionTime"),
+        image_orientation=image_orientation 
     )
 
 

@@ -69,6 +69,7 @@ class SeqInfo(NamedTuple):
     date: Optional[str]  # 24
     series_uid: Optional[str]  # 25
     time: Optional[str]  # 26
+    image_orientation: Optional[list]
 
 
 class StudySessionInfo(NamedTuple):
